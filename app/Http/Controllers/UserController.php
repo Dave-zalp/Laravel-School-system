@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ExamstartJob;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,10 @@ class UserController extends Controller
                 $user = User::where('regNo',$validate['reg'])->exists();
                 if($user){
                     Session::put('examloginsuccess','EXAM LOGIN WAS SUCCESSFUL');
-                    return redirect()->route('user.exam');
+
+                    // dispatch method used to dispatch a job
+                    dispatch(new ExamstartJob()); 
+                    return redirect()->route('user.exam')->with('mssg', 'Mail successfully sent');
                 }
                 else{
                     redirect()->back()->with('err_message','Portal Authentication Failed');

@@ -3,6 +3,16 @@
 <br><br><br><br>
 <div class="card mb-3">
     <div class="card-body">
+      @if (Session::has('mssg'))
+
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success:</strong> {{ Session::get('mssg') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        
+      @endif
       <h5 class="card-title">Question 1</h5>
       <p class="card-text">Who would win the Presidential election.</p>
       <div class="form-check">
